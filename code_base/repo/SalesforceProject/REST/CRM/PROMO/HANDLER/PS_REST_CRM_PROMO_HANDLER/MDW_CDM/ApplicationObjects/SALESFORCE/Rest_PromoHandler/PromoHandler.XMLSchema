@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:schemaEntry xmlns:con="http://www.bea.com/wli/sb/resources/config">
+    <con:schema><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="unqualified">
+  <xsd:element name="requestGetTechnicalPromoSF" type="requestGetTechnicalPromoSFType"/>
+  <xsd:complexType name="requestGetTechnicalPromoSFType">
+    <xsd:sequence>
+      <xsd:element name="codPromo" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="promoId" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="responseGetTechnicalPromoSF" type="responseGetTechnicalPromoSFType"/>
+  <xsd:complexType name="responseGetTechnicalPromoSFType">
+    <xsd:sequence>
+      <xsd:element name="result" type="xsd:string"/>
+      <xsd:element name="resultCode" type="xsd:string"/>
+      <xsd:element name="resultDescription" type="xsd:string"/>
+      <xsd:element name="listOfPromotions" minOccurs="0" maxOccurs="unbounded">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="idPromoTecn" type="xsd:string"/>
+            <xsd:element name="codePromoTecn" type="xsd:string"/>
+            <xsd:element name="descrPromoTecn" type="xsd:string"/>
+            <xsd:element name="namePromoTecn" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>]]></con:schema>
+</con:schemaEntry>
