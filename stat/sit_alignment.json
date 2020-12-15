@@ -1,0 +1,39 @@
+{
+  "numberOfAddedLines" : {
+    "it" : {
+      "value" : 0
+    },
+    "sit" : {
+      "value" : 0
+    }
+  },
+  "numberOfDeletedLines" : {
+    "it" : {
+      "value" : 0
+    },
+    "sit" : {
+      "value" : 0
+    }
+  },
+  "numberOfChanges" : {
+    "it" : {
+      "value" : 0
+    },
+    "sit" : {
+      "value" : 0
+    }
+  },
+  "percentageOfAlignment" : {
+    "it" : {
+      "value" : 0
+    },
+    "sit" : {
+      "value" : 100
+    }
+  },
+  "peerMatchEntries" : {
+    "it" : {
+      "matchEntries" : [ ]
+    }
+  }
+}
