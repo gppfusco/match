@@ -1,0 +1,10 @@
+{
+  "statisticFile": {
+    "it": "stat/it_alignment.json",
+    "sit": "stat/sit_alignment.json",
+    "tst5": "stat/tst5_alignment.json",
+    "uat": "stat/uat_alignment.json",
+    "am": "stat/am_alignment.json",
+    "prod": "stat/prod_alignment.json"
+  }
+}

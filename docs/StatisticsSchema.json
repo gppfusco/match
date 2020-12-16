@@ -1,0 +1,64 @@
+{
+  "numberOfAddedLines": {
+    "peerName_1": {
+      "value": 0
+    },
+    "peerName_2": {
+      "value": 10
+    },
+    "peerName_n": {
+      "value": 4
+    }
+  },
+  "numberOfDeletedLines": {
+    "peerName_1": {
+      "value": 0
+    },
+    "peerName_2": {
+      "value": 5
+    },
+    "peerName_n": {
+      "value": 4
+    }
+  },
+  "numberOfChanges": {
+    "peerName_1": {
+      "value": 0
+    },
+    "peerName_2": {
+      "value": 5
+    },
+    "peerName_n": {
+      "value": 4
+    }
+  },
+  "percentageOfAlignment": {
+    "peerName_1": {
+      "value": 100
+    },
+    "peerName_2": {
+      "value": 30
+    },
+    "peerName_n": {
+      "value": 50
+    }
+  },
+  "peerMatchEntries": {
+    "peerName_1": {
+      "matchEntries": [
+        {
+          "numberOfAddedLines": 1,
+          "numberOfDeletedLines": 1,
+          "formattedEntry": "",
+          "sourcePath": "",
+          "targetPath": "",
+          "changeType": "MODIFY"
+        }
+      ]
+    },
+    "peerName_2": {
+    },
+    "peerName_n": {
+    }
+  }
+}

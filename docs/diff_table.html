@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="bootstrap.cerulean.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+</head>
+<body>
+
+<div class="content" align="center">
+
+    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+        <button type="button" class="btn btn-primary">OSB IT</button>
+        <div class="btn-group" role="group">
+            <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false"></button>
+            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="">
+                <a class="dropdown-item" href="#" onclick="loadDiffTable('it', 'sit');">OSB SIT</a>
+                <a class="dropdown-item" href="#" onclick="loadDiffTable('it', 'tst5');">OSB TST5</a>
+                <a class="dropdown-item" href="#" onclick="loadDiffTable('it', 'uat');">OSB UAT</a>
+                <a class="dropdown-item" href="#" onclick="loadDiffTable('it', 'am');">OSB AM</a>
+                <a class="dropdown-item" href="#" onclick="loadDiffTable('it', 'prod');">OSB PROD</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+        <button type="button" class="btn btn-success">OSB SIT</button>
+        <div class="btn-group" role="group">
+            <button id="btnGroupDrop2" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false"></button>
+            <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
+                <a class="dropdown-item" href="#" onclick="loadDiffTable('sit', 'it');">OSB IT</a>
+                <a class="dropdown-item" href="#" onclick="loadDiffTable('sit', 'tst5');">OSB TST5</a>
+                <a class="dropdown-item" href="#" onclick="loadDiffTable('sit', 'uat');">OSB UAT</a>
+                <a class="dropdown-item" href="#" onclick="loadDiffTable('sit', 'am');">OSB AM</a>
+                <a class="dropdown-item" href="#" onclick="loadDiffTable('sit', 'prod');">OSB PROD</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+        <button type="button" class="btn btn-info">OSB TST5</button>
+        <div class="btn-group" role="group">
+            <button id="btnGroupDrop3" type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+            <div class="dropdown-menu" aria-labelledby="btnGroupDrop3">
+                <a class="dropdown-item" href="#" onclick="loadDiffTable('tst5', 'it');">OSB IT</a>
+                <a class="dropdown-item" href="#" onclick="loadDiffTable('tst5', 'sit');">OSB SIT</a>
+                <a class="dropdown-item" href="#" onclick="loadDiffTable('tst5', 'uat');">OSB UAT</a>
+                <a class="dropdown-item" href="#" onclick="loadDiffTable('tst5', 'am');">OSB AM</a>
+                <a class="dropdown-item" href="#" onclick="loadDiffTable('tst5', 'prod');">OSB PROD</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+        <button type="button" class="btn btn-danger">OSB UAT</button>
+        <div class="btn-group" role="group">
+            <button id="btnGroupDrop4" type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+            <div class="dropdown-menu" aria-labelledby="btnGroupDrop4">
+                <a class="dropdown-item" href="#" onclick="loadDiffTable('uat', 'it');">OSB IT</a>
+                <a class="dropdown-item" href="#" onclick="loadDiffTable('uat', 'sit');">OSB SIT</a>
+                <a class="dropdown-item" href="#" onclick="loadDiffTable('uat', 'tst5');">OSB TST5</a>
+                <a class="dropdown-item" href="#" onclick="loadDiffTable('uat', 'am');">OSB AM</a>
+                <a class="dropdown-item" href="#" onclick="loadDiffTable('uat', 'prod');">OSB PROD</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+        <button type="button" class="btn btn-primary">OSB AM</button>
+        <div class="btn-group" role="group">
+            <button id="btnGroupDrop5" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false"></button>
+            <div class="dropdown-menu" aria-labelledby="btnGroupDrop5" style="">
+                <a class="dropdown-item" href="#" onclick="loadDiffTable('am', 'it');">OSB IT</a>
+                <a class="dropdown-item" href="#" onclick="loadDiffTable('am', 'sit');">OSB SIT</a>
+                <a class="dropdown-item" href="#" onclick="loadDiffTable('am', 'tst5');">OSB TST5</a>
+                <a class="dropdown-item" href="#" onclick="loadDiffTable('am', 'uat');">OSB UAT</a>
+                <a class="dropdown-item" href="#" onclick="loadDiffTable('am', 'prod');">OSB PROD</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+        <button type="button" class="btn btn-success">OSB PROD</button>
+        <div class="btn-group" role="group">
+            <button id="btnGroupDrop6" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false"></button>
+            <div class="dropdown-menu" aria-labelledby="btnGroupDrop6">
+                <a class="dropdown-item" href="#" onclick="loadDiffTable('prod', 'it');">OSB IT</a>
+                <a class="dropdown-item" href="#" onclick="loadDiffTable('prod', 'sit');">OSB SIT</a>
+                <a class="dropdown-item" href="#" onclick="loadDiffTable('prod', 'tst5');">OSB TST5</a>
+                <a class="dropdown-item" href="#" onclick="loadDiffTable('prod', 'uat');">OSB UAT</a>
+                <a class="dropdown-item" href="#" onclick="loadDiffTable('prod', 'am');">OSB AM</a>
+            </div>
+        </div>
+    </div>
+
+    <br><br><br>
+
+    <h4 id="diffHeading"/></h4>
+    <table id="diffTable" class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Match Entry</th>
+            <th scope="col">Change type</th>
+            <th scope="col">Data</th>
+        </tr>
+        </thead>
+        <tbody id="diffBody">
+        </tbody>
+    </table>
+</div>
+
+<script>
+var mapOfEnvFile = {};
+var environments = ["it", "sit", "tst5", "uat", "am", "prod"];
+
+function deleteRows() {
+        var tbl = document.getElementById("diffTable");
+        var rowCount = tbl.rows.length;
+        for (var i = rowCount - 1; i > 0; i--) {
+            tbl.deleteRow(i);
+        }
+}
+
+function loadTable(prefix, jsonFile, suffix){
+
+    $.getJSON(jsonFile, function(json) {
+        document.getElementById("diffHeading").innerHTML = "OSB " + prefix.toUpperCase() + " --- " + suffix.toUpperCase();
+        var tableRef = document.getElementById("diffTable").getElementsByTagName("tbody")[0];
+        alignment = json;
+        var count = 0;
+        deleteRows();
+        var peerMatchEntries;
+        if((peerMatchEntries = alignment.peerMatchEntries) && peerMatchEntries[suffix].matchEntries){
+            var matchEntries = peerMatchEntries[suffix].matchEntries;
+            matchEntries.forEach(function myFunction(value) {
+                var changeType = value.changeType;
+                var formattedEntry = value.formattedEntry;
+                value.formattedEntry="";
+                count+=1;
+                tableRef.insertRow().innerHTML =
+                "<tr class='table-primary'>" +
+                "<th scope='row'>Entry " + count + "</th>" +
+                    "<td>" + changeType + "</td>" +
+                    "<td>" +
+                        "<ul class='nav nav-tabs'>" +
+                            "<li class='nav-item'>" +
+                                "<a class='nav-link active' data-toggle='tab' href='#json_" + count + "'>JSON Entry</a>" +
+                            "</li>" +
+                            "<li class='nav-item'>" +
+                                "<a class='nav-link' data-toggle='tab' href='#diff_" + count + "'>Diff Entry</a>" +
+                            "</li>" +
+                            "<li class='nav-item'>" +
+                                "<a class='nav-link' data-toggle='tab' href='#close_" + count + "'>Close</a>" +
+                            "</li>" +
+                        "</ul>" +
+                        "<div class='tab-content'>" +
+                            "<div class='tab-pane fade' id='json_" + count + "'>" +
+                                "<pre>" + JSON.stringify(value, null, 2) + "</pre>" +
+                            "</div>" +
+                            "<div class='tab-pane fade' id='diff_" + count + "'>" +
+                                "<pre>" + atob(formattedEntry).replace(/</g, '&lt;').replace(/>/g, '&gt') + "</pre>" +
+                            "</div>" +
+                            "<div class='tab-pane fade' id='close_" + count + "'><p></p></div>" +
+                        "</div>" +
+                    "</td>" +
+                "</tr>";
+            });
+        }
+
+    });
+}
+
+function loadConfFile(jsonConfigFile){
+    $.getJSON(jsonConfigFile, function(json) {
+        config = json;
+        if( config.statisticFile){
+            environments.forEach(function (value) {
+                var file = config.statisticFile[value];
+                if(file){
+                    mapOfEnvFile[value] = file;
+                }
+            });
+        }
+    });
+};
+
+function loadDiffTable(prefix, suffix){
+    if(mapOfEnvFile[prefix]){
+        loadTable(prefix, mapOfEnvFile[prefix], suffix);
+    }
+};
+
+loadConfFile("config.json");
+
+</script>
+</body>
+</html>
