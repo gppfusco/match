@@ -1,10 +1,10 @@
 {
   "statisticFile": {
-    "it": "../stat/it_alignment.json",
-    "sit": "../stat/sit_alignment.json",
-    "tst5": "../stat/tst5_alignment.json",
-    "uat": "../stat/uat_alignment.json",
-    "am": "../stat/am_alignment.json",
-    "prod": "../stat/prod_alignment.json"
+    "it": "blob/main/stat/it_alignment.json",
+    "sit": "blob/main/stat/sit_alignment.json",
+    "tst5": "blob/main/stat/tst5_alignment.json",
+    "uat": "blob/main/stat/uat_alignment.json",
+    "am": "blob/main/stat/am_alignment.json",
+    "prod": "blob/main/stat/prod_alignment.json"
   }
 }
