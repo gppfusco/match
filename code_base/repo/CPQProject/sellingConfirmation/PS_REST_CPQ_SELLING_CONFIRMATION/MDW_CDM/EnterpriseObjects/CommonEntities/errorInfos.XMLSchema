@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:schemaEntry xmlns:con="http://www.bea.com/wli/sb/resources/config">
+    <con:schema><![CDATA[<?xml version="1.0" encoding="windows-1252" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.skytv.it/mdw/data"
+            targetNamespace="http://www.skytv.it/mdw/data" elementFormDefault="qualified">
+  <xsd:complexType name="errorInfosType">
+    <xsd:sequence>
+      <xsd:element name="httpResponseCode" type="xsd:string"/>
+      <xsd:element name="faultCode" type="xsd:string"/>
+      <xsd:element name="faultDescription" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="subFaultCode" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="subFaultDescription" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+   
+  <xsd:element name="errorInfos" type="errorInfosType"/>
+
+</xsd:schema>]]></con:schema>
+    <con:targetNamespace>http://www.skytv.it/mdw/data</con:targetNamespace>
+</con:schemaEntry>
