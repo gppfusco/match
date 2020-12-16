@@ -1,10 +1,10 @@
 {
   "statisticFile": {
-    "it": "blob/main/stat/it_alignment.json",
-    "sit": "blob/main/stat/sit_alignment.json",
-    "tst5": "blob/main/stat/tst5_alignment.json",
-    "uat": "blob/main/stat/uat_alignment.json",
-    "am": "blob/main/stat/am_alignment.json",
-    "prod": "blob/main/stat/prod_alignment.json"
+    "it": "https://github.com/gppfusco/match/blob/main/stat/it_alignment.json",
+    "sit": "https://github.com/gppfusco/match/blob/main/stat/sit_alignment.json",
+    "tst5": "https://github.com/gppfusco/match/blob/main/stat/tst5_alignment.json",
+    "uat": "https://github.com/gppfusco/match/blob/main/stat/uat_alignment.json",
+    "am": "https://github.com/gppfusco/match/blob/main/stat/am_alignment.json",
+    "prod": "https://github.com/gppfusco/match/blob/main/stat/prod_alignment.json"
   }
 }
