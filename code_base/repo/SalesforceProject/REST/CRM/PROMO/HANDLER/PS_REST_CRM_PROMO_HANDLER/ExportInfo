@@ -3,7 +3,7 @@
     <imp:properties>
         <imp:property name="username" value="weblogic"/>
         <imp:property name="description" value=""/>
-        <imp:property name="exporttime" value="Wed Dec 16 13:03:13 CET 2020"/>
+        <imp:property name="exporttime" value="Wed Dec 16 22:26:10 CET 2020"/>
         <imp:property name="productname" value="Oracle Service Bus"/>
         <imp:property name="productversion" value="12.2.1.3.0"/>
         <imp:property name="projectLevelExport" value="false"/>
