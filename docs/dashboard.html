@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="bootstrap.cerulean.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+<body>
+
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#stat_osb_it">OSB IT</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#stat_osb_sit">OSB SIT</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#stat_osb_tst5">OSB TST5</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#stat_osb_uat">OSB UAT</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#stat_osb_am">OSB AM</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#stat_osb_prod">OSB PROD</a>
+    </li>
+</ul>
+<div class="tab-content">
+    <div class="tab-pane fade" id="stat_osb_it">
+
+        <div align="center">
+            <h4>Alignment progress</h4>
+            <h4>SIT</h4>
+            <div class="progress">
+                <div id="progress_it_sit" class="progress-bar bg-success" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <h4>TST5</h4>
+            <div class="progress">
+                <div id="progress_it_tst5" class="progress-bar bg-info" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <h4>UAT</h4>
+            <div class="progress">
+                <div id="progress_it_uat" class="progress-bar bg-warning" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <h4>AM</h4>
+            <div class="progress">
+                <div id="progress_it_am" class="progress-bar bg-danger" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <h4>PROD</h4>
+            <div class="progress">
+                <div id="progress_it_prod" class="progress-bar bg-success" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+
+        </div>
+
+        <canvas height="10vh" width="50vw" id="it_number_added_lines"></canvas>
+        <canvas height="10vh" width="50vw" id="it_number_deleted_lines"></canvas>
+        <canvas height="10vh" width="50vw" id="it_number_changes"></canvas>
+    </div>
+    <div class="tab-pane fade" id="stat_osb_sit">
+        <div align="center">
+            <h4>Alignment progress</h4>
+            <h4>IT</h4>
+            <div class="progress">
+                <div id="progress_sit_it" class="progress-bar bg-success" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <h4>TST5</h4>
+            <div class="progress">
+                <div id="progress_sit_tst5" class="progress-bar bg-info" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <h4>UAT</h4>
+            <div class="progress">
+                <div id="progress_sit_uat" class="progress-bar bg-warning" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <h4>AM</h4>
+            <div class="progress">
+                <div id="progress_sit_am" class="progress-bar bg-danger" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <h4>PROD</h4>
+            <div class="progress">
+                <div id="progress_sit_prod" class="progress-bar bg-success" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+
+        </div>
+        <canvas height="10vh" width="50vw" id="sit_number_added_lines"></canvas>
+        <canvas height="10vh" width="50vw" id="sit_number_deleted_lines"></canvas>
+        <canvas height="10vh" width="50vw" id="sit_number_changes"></canvas>
+    </div>
+    <div class="tab-pane fade" id="stat_osb_tst5">
+        <div align="center">
+            <h4>Alignment progress</h4>
+            <h4>IT</h4>
+            <div class="progress">
+                <div id="progress_tst5_it" class="progress-bar bg-success" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <h4>SIT</h4>
+            <div class="progress">
+                <div id="progress_tst5_sit" class="progress-bar bg-info" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <h4>UAT</h4>
+            <div class="progress">
+                <div id="progress_tst5_uat" class="progress-bar bg-warning" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <h4>AM</h4>
+            <div class="progress">
+                <div id="progress_tst5_am" class="progress-bar bg-danger" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <h4>PROD</h4>
+            <div class="progress">
+                <div id="progress_tst5_prod" class="progress-bar bg-success" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+
+        </div>
+        <canvas height="10vh" width="50vw" id="tst5_number_added_lines"></canvas>
+        <canvas height="10vh" width="50vw" id="tst5_number_deleted_lines"></canvas>
+        <canvas height="10vh" width="50vw" id="tst5_number_changes"></canvas>
+    </div>
+    <div class="tab-pane fade" id="stat_osb_uat">
+        <div align="center">
+            <h4>Alignment progress</h4>
+            <h4>IT</h4>
+            <div class="progress">
+                <div id="progress_uat_it" class="progress-bar bg-success" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <h4>SIT</h4>
+            <div class="progress">
+                <div id="progress_uat_sit" class="progress-bar bg-info" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <h4>TST5</h4>
+            <div class="progress">
+                <div id="progress_uat_tst5" class="progress-bar bg-warning" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <h4>AM</h4>
+            <div class="progress">
+                <div id="progress_uat_am" class="progress-bar bg-danger" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <h4>PROD</h4>
+            <div class="progress">
+                <div id="progress_uat_prod" class="progress-bar bg-success" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+
+        </div>
+        <canvas height="10vh" width="50vw" id="uat_number_added_lines"></canvas>
+        <canvas height="10vh" width="50vw" id="uat_number_deleted_lines"></canvas>
+        <canvas height="10vh" width="50vw" id="uat_number_changes"></canvas>
+    </div>
+    <div class="tab-pane fade" id="stat_osb_am">
+        <div align="center">
+            <h4>Alignment progress</h4>
+            <h4>IT</h4>
+            <div class="progress">
+                <div id="progress_am_it" class="progress-bar bg-success" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <h4>SIT</h4>
+            <div class="progress">
+                <div id="progress_am_sit" class="progress-bar bg-info" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <h4>TST5</h4>
+            <div class="progress">
+                <div id="progress_am_tst5" class="progress-bar bg-warning" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <h4>UAT</h4>
+            <div class="progress">
+                <div id="progress_am_uat" class="progress-bar bg-danger" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <h4>PROD</h4>
+            <div class="progress">
+                <div id="progress_am_prod" class="progress-bar bg-success" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+
+        </div>
+        <canvas height="10vh" width="50vw" id="am_number_added_lines"></canvas>
+        <canvas height="10vh" width="50vw" id="am_number_deleted_lines"></canvas>
+        <canvas height="10vh" width="50vw" id="am_number_changes"></canvas>
+    </div>
+    <div class="tab-pane fade" id="stat_osb_prod">
+        <div align="center">
+            <h4>Alignment progress</h4>
+            <h4>IT</h4>
+            <div class="progress">
+                <div id="progress_prod_it" class="progress-bar bg-success" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <h4>SIT</h4>
+            <div class="progress">
+                <div id="progress_prod_sit" class="progress-bar bg-info" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <h4>TST5</h4>
+            <div class="progress">
+                <div id="progress_prod_tst5" class="progress-bar bg-warning" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <h4>UAT</h4>
+            <div class="progress">
+                <div id="progress_prod_uat" class="progress-bar bg-danger" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <h4>AM</h4>
+            <div class="progress">
+                <div id="progress_prod_am" class="progress-bar bg-success" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+
+        </div>
+        <canvas height="10vh" width="50vw" id="prod_number_added_lines"></canvas>
+        <canvas height="10vh" width="50vw" id="prod_number_deleted_lines"></canvas>
+        <canvas height="10vh" width="50vw" id="prod_number_changes"></canvas>
+    </div>
+</div>
+
+<script>
+
+var varLabels = ['IT', 'SIT', 'TST5', 'UAT', 'AM', 'PROD'];
+var varBackgroundColor = [
+                'rgba(255, 0, 0, 1)',
+                'rgba(0, 0, 255, 1)',
+                'rgba(60, 179, 113, 1)',
+                'rgba(238, 130, 238, 1)',
+                'rgba(255, 165, 0, 1)',
+                'rgba(0, 0, 0, 1)'
+            ];
+var environments = ["it", "sit", "tst5", "uat", "am", "prod"];
+
+function loadPeerStatistics(prefix, jsonFile){
+    $.getJSON(jsonFile, function(json) {
+        alignment = json;
+        var number_added_lines = [];
+        var number_deleted_lines = [];
+        var number_changes = [];
+
+        environments.forEach(function (value) {
+            var addedLines = alignment.numberOfAddedLines[value];
+            var deletedLines = alignment.numberOfDeletedLines[value];
+            var changes = alignment.numberOfChanges[value];
+            if(addedLines !== undefined ){
+                number_added_lines.push(addedLines.value);
+            }
+            if(deletedLines !== undefined ){
+                number_deleted_lines.push(deletedLines.value);
+            }
+            if(changes !== undefined ){
+                number_changes.push(changes.value);
+            }
+
+            if(value !== prefix){
+                var percentage = alignment.percentageOfAlignment[value];
+                if(percentage !== undefined ){
+                    document.getElementById("progress_"+prefix+"_"+value).style ="width: "+percentage.value+"%";
+                    document.getElementById("progress_"+prefix+"_"+value)["aria-valuenow"] =percentage.value;
+                }
+            }
+        });
+
+        new Chart(document.getElementById(prefix+'_number_added_lines').getContext('2d'), {
+            type: 'doughnut',
+            data: {
+                labels: varLabels,
+                datasets: [{
+                    data: number_added_lines,
+                    backgroundColor: varBackgroundColor
+                }]
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: 'Number of added lines',
+                    fontSize: 16
+                }
+            }
+        });
+
+    new Chart(document.getElementById(prefix+'_number_deleted_lines').getContext('2d'), {
+            type: 'doughnut',
+            data: {
+                labels: varLabels,
+                datasets: [{
+                    data: number_deleted_lines,
+                    backgroundColor: varBackgroundColor
+                }]
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: 'Number of deleted lines',
+                    fontSize: 16
+                }
+            }
+        });
+
+    new Chart(document.getElementById(prefix+'_number_changes').getContext('2d'), {
+        type: 'doughnut',
+        data: {
+            labels: varLabels,
+            datasets: [{
+                data: number_changes,
+                backgroundColor: varBackgroundColor
+            }]
+           },
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: 'Number of changes',
+                    fontSize: 16
+                }
+            }
+        });
+
+        var number_added_lines = [];
+        var number_deleted_lines = [];
+        var number_changes = [];
+    });
+};
+
+function loadStatistics(jsonConfigFile){
+    $.getJSON(jsonConfigFile, function(json) {
+        config = json;
+        if( config.statisticFile){
+            environments.forEach(function (value) {
+                var file = config.statisticFile[value];
+                if(file){
+                    loadPeerStatistics(value, file);
+                }
+            });
+        }
+    });
+};
+
+loadStatistics("config.json");
+
+</script>
+</body>
+</html>
