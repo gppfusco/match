@@ -25,10 +25,10 @@
         <tran:provider-id>http</tran:provider-id>
         <tran:inbound>false</tran:inbound>
         <tran:URI>
-            <env:value>http://esewlssoa01-vip:18200/SalesForcePartnerAdapterCRM/SalesForcePartnerAdapterCRMService</env:value>
+            <env:value>http://10.207.159.29:18200/SalesForcePartnerAdapterCRM/SalesForcePartnerAdapterCRMService</env:value>
         </tran:URI>
         <tran:URI>
-            <env:value>http://esewlssoa02-vip:18200/SalesForcePartnerAdapterCRM/SalesForcePartnerAdapterCRMService</env:value>
+            <env:value>http://10.207.159.30:18200/SalesForcePartnerAdapterCRM/SalesForcePartnerAdapterCRMService</env:value>
         </tran:URI>
         <tran:outbound-properties>
             <tran:load-balancing-algorithm>round-robin</tran:load-balancing-algorithm>

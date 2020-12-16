@@ -141,8 +141,6 @@
             <con:placeholder-override id="PlaceholderID_a155e5c.2f0f9efa.0.168bd9ae67b.N6c9e">
                 <con:actions/>
             </con:placeholder-override>
-            <con:placeholder-override id="PlaceholderID_a291138.792cb3d8.0.16daf692b6c.N7c0e"/>
-            <con:placeholder-override id="PlaceholderID_a291138.792cb3d8.0.16daf692b6c.N7c0d"/>
         </con:template-overrides>
     </con:router>
     <con:template ref="MDW_CO/templates/pipeline/PL_INTERNAL_GENERIC_OPERATION_TEMPLATE"/>

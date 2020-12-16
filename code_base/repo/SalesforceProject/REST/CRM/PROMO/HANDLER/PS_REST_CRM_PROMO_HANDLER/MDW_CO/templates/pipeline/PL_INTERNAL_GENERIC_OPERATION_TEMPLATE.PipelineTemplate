@@ -91,6 +91,18 @@ else $inbound/ctx:transport/ctx:request/tp:headers/tp:user-header[@name='logLeve
             <con:stage id="_StageId-N3f57fedb.N3d0b21a8.0.16827787a44.N7977" name="setPLExceptionRouting">
                 <con:context/>
                 <con:actions>
+                    <con1:assign varName="faultRef">
+                        <con2:id>_ActionId-N3f5770df.63f4d57a.4.150a4844c2c.N7e5c</con2:id>
+                        <con1:expr>
+                            <con2:xqueryText>$fault</con2:xqueryText>
+                        </con1:expr>
+                    </con1:assign>
+                    <con1:assign varName="bsHeaderResponse">
+                        <con2:id>_ActionId-N560177c1.N178aad54.4.15a5afc75a4.N7f92</con2:id>
+                        <con1:expr>
+                            <con2:xqueryText>$outbound/ctx:transport/ctx:response</con2:xqueryText>
+                        </con1:expr>
+                    </con1:assign>
                     <con1:ifThenElse>
                         <con2:id>_ActionId-N3f57fedb.N3d0b21a8.0.16827787a44.N7a70</con2:id>
                         <con1:case id="_BranchId-N3f57fedb.N3d0b21a8.0.16827787a44.N7a6f">
@@ -98,13 +110,21 @@ else $inbound/ctx:transport/ctx:request/tp:headers/tp:user-header[@name='logLeve
                                 <con2:xqueryText>fn:empty($firstCustomErrorInfos)</con2:xqueryText>
                             </con1:condition>
                             <con1:actions>
+                                <con1:assign varName="bsHeaderResponse">
+                                    <con2:id>_ActionId-a291403.359e526c.0.16fe7aaa9d2.N7df2</con2:id>
+                                    <con1:expr>
+                                        <con2:xqueryText>$outbound/ctx:transport/ctx:response</con2:xqueryText>
+                                    </con1:expr>
+                                </con1:assign>
                                 <con1:assign varName="firstCustomErrorInfos">
                                     <con2:id>_ActionId-N3f57fedb.N3d0b21a8.0.16827787a44.N7a6e</con2:id>
                                     <con1:expr>
                                         <con2:xqueryTransform>
                                             <con2:resource ref="MDW_CO/transformation/createErrorInfos"/>
                                             <con2:param name="faultCode">
-                                                <con2:path>fn:data($fault/ctx:errorCode)</con2:path>
+                                                <con2:path>if($bsHeaderResponse/*:http-response-code and (fn:data($bsHeaderResponse/*:http-response-code) = "404" or fn:data($bsHeaderResponse/*:http-response-code) = "400"))
+then(fn:data($bsHeaderResponse/*:http-response-code))
+else(fn:data($fault/ctx:errorCode))</con2:path>
                                             </con2:param>
                                             <con2:param name="faultDescription">
                                                 <con2:path>fn:data($fault/ctx:reason)</con2:path>
@@ -125,18 +145,6 @@ else $inbound/ctx:transport/ctx:request/tp:headers/tp:user-header[@name='logLeve
             <con:stage id="_StageId-N3f5770df.63f4d57a.4.150a4844c2c.N7e5f" name="logErrorFaultMessage">
                 <con:context/>
                 <con:actions>
-                    <con1:assign varName="faultRef">
-                        <con2:id>_ActionId-N3f5770df.63f4d57a.4.150a4844c2c.N7e5c</con2:id>
-                        <con1:expr>
-                            <con2:xqueryText>$fault</con2:xqueryText>
-                        </con1:expr>
-                    </con1:assign>
-                    <con1:assign varName="bsHeaderResponse">
-                        <con2:id>_ActionId-N560177c1.N178aad54.4.15a5afc75a4.N7f92</con2:id>
-                        <con1:expr>
-                            <con2:xqueryText>$outbound/ctx:transport/ctx:response</con2:xqueryText>
-                        </con1:expr>
-                    </con1:assign>
                     <con:placeholder-node id="PlaceholderID_N3f57704f.6706c617.0.1580a56c871.N7b15"/>
                     <con4:route>
                         <con2:id>_ActionId-N3f5770df.63f4d57a.4.150a4844c2c.N7e22</con2:id>
@@ -332,13 +340,21 @@ else $inbound/ctx:transport/ctx:request/tp:headers/tp:user-header[@name='logLeve
                                 <con2:xqueryText>fn:empty($firstCustomErrorInfos)</con2:xqueryText>
                             </con1:condition>
                             <con1:actions>
+                                <con1:assign varName="bsHeaderResponse">
+                                    <con2:id>_ActionId-a291403.359e526c.0.16fe7aaa9d2.N7dbd</con2:id>
+                                    <con1:expr>
+                                        <con2:xqueryText>$outbound/ctx:transport/ctx:response</con2:xqueryText>
+                                    </con1:expr>
+                                </con1:assign>
                                 <con1:assign varName="firstCustomErrorInfos">
                                     <con2:id>_ActionId-a290a7e.N39c216e2.0.1655d189eb1.N7e24</con2:id>
                                     <con1:expr>
                                         <con2:xqueryTransform>
                                             <con2:resource ref="MDW_CO/transformation/createErrorInfos"/>
                                             <con2:param name="faultCode">
-                                                <con2:path>fn:data($fault/ctx:errorCode)</con2:path>
+                                                <con2:path>if($bsHeaderResponse/*:http-response-code and (fn:data($bsHeaderResponse/*:http-response-code) = "404" or fn:data($bsHeaderResponse/*:http-response-code) = "400"))
+then(fn:data($bsHeaderResponse/*:http-response-code))
+else(fn:data($fault/ctx:errorCode))</con2:path>
                                             </con2:param>
                                             <con2:param name="faultDescription">
                                                 <con2:path>fn:data($fault/ctx:reason)</con2:path>
@@ -668,7 +684,7 @@ else dvm:lookup($dvmPath, 'operation', $operationName, 'responseType','default')
                                                                             <con2:path>$tid</con2:path>
                                                                         </con2:param>
                                                                         <con2:param name="payLoad">
-                                                                            <con2:path>$body</con2:path>
+                                                                            <con2:path>if(xs:integer($logLevel) >= xs:integer(3)) then &lt;notlogged>&lt;/notlogged> else $body</con2:path>
                                                                         </con2:param>
                                                                     </con2:xqueryTransform>
                                                                 </con1:expr>
@@ -748,7 +764,7 @@ else dvm:lookup($dvmPath, 'operation', $operationName, 'responseType','default')
                                                                             <con2:path>$tid</con2:path>
                                                                         </con2:param>
                                                                         <con2:param name="payLoad">
-                                                                            <con2:path>$body</con2:path>
+                                                                            <con2:path>if(xs:integer($logLevel) >= xs:integer(2)) then &lt;notlogged>&lt;/notlogged> else $body</con2:path>
                                                                         </con2:param>
                                                                     </con2:xqueryTransform>
                                                                 </con1:expr>

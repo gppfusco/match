@@ -97,6 +97,14 @@
                                         <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$operationName='GetTechnicalPromo'</con3:xqueryText>
                                     </con2:condition>
                                     <con2:actions>
+                                        <con2:ifThenElse>
+                                            <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-a156225.N19b3aacf.0.16e3ae52eb6.N7e5f</con3:id>
+                                            <con3:disabled xmlns:con3="http://www.bea.com/wli/sb/stages/config">true</con3:disabled>
+                                            <con2:case id="_BranchId-a156225.N19b3aacf.0.16e3ae52eb6.N7e5e">
+                                                <con2:actions/>
+                                            </con2:case>
+                                            <con2:default/>
+                                        </con2:ifThenElse>
                                         <con2:replace varName="body" contents-only="true">
                                             <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-a290e9d.72577dcd.0.16ac62e3dd5.N7e07</con3:id>
                                             <con2:expr>
