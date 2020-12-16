@@ -1,0 +1,802 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:templateEntry xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con5="http://www.bea.com/wli/sb/typesystem/config">
+    <con:coreEntry>
+        <con:binding type="SOAP" xsi:type="con:AnyWsdlSoapBindingType"/>
+    </con:coreEntry>
+    <con:router errorHandler="error-N3f5770df.63f4d57a.4.150a4844c2c.N7de9">
+        <con:pipeline type="request" name="request-N3f5770df.7091519.4.150a45003a6.N777e">
+            <con:stage id="_StageId-N3f5770df.7091519.4.150a45003a6.N777c" name="initCustomVariables">
+                <con:context/>
+                <con:actions>
+                    <con1:assign varName="dvmPath">
+                        <con2:id>_ActionId-N3f5770df.7091519.4.150a45003a6.N7772</con2:id>
+                        <con1:expr>
+                            <con2:xqueryText>'&lt;###DVM_PATH###>'</con2:xqueryText>
+                        </con1:expr>
+                    </con1:assign>
+                    <con1:assign varName="pipelineName">
+                        <con2:id>_ActionId-N3f5770df.7091519.4.150a45003a6.N7775</con2:id>
+                        <con1:expr>
+                            <con2:xqueryText>'&lt;###NOME_DELLA_PIPELINE###>'</con2:xqueryText>
+                        </con1:expr>
+                    </con1:assign>
+                    <con1:assign varName="pathXquerySimpleResponse">
+                        <con2:id>_ActionId-N3f5770df.7091519.4.150a45003a6.N776f</con2:id>
+                        <con1:expr>
+                            <con2:xqueryText>'MDW_CO/transformation/createSimpleResponseWithTid'</con2:xqueryText>
+                        </con1:expr>
+                    </con1:assign>
+                    <con1:assign varName="BSNameForLog">
+                        <con2:id>_ActionId-N3f5770df.N1ef68327.0.150aa484de7.N7c9b</con2:id>
+                        <con1:expr>
+                            <con2:xqueryText>''</con2:xqueryText>
+                        </con1:expr>
+                    </con1:assign>
+                    <con1:assign varName="raiseErrorOnException">
+                        <con2:id>_ActionId-N3f577050.615af227.0.15456f7cb81.N762a</con2:id>
+                        <con1:expr>
+                            <con2:xqueryText>'false'</con2:xqueryText>
+                        </con1:expr>
+                    </con1:assign>
+                </con:actions>
+            </con:stage>
+            <con:stage id="_StageId-N3f5770df.7091519.4.150a45003a6.N777a" name="initVarFromHeader">
+                <con:context>
+                    <con2:userNsDecl prefix="int" namespace="http://www.skytv.it/mdw/internal"/>
+                </con:context>
+                <con:actions>
+                    <con1:assign varName="tid">
+                        <con2:id>_ActionId-N3f5770df.7091519.4.150a45003a6.N776c</con2:id>
+                        <con1:expr>
+                            <con2:xqueryText>if (fn:not(fn:empty($body/int:operationRequest/int:logInfos/*:tid/text()))) (: tid ricevuto da BPEL :)
+then ( $body/int:operationRequest/int:logInfos/*:tid/text() )
+else ( 
+	if ( fn:not( fn:empty($inbound/ctx:transport/ctx:request/tp:headers/tp:user-header[@name='enqueueTid']/@value)) ) (: tid ricevuto dal chiamante :)
+	then ( $inbound/ctx:transport/ctx:request/tp:headers/tp:user-header[@name='enqueueTid']/@value ) 
+	else (
+		if( fn:not( fn:empty ($globalTid)) ) (: tid ricevuto dalla routing :)
+		then ( $globalTid )
+		else ( fn-bea:uuid() )
+	) 
+)</con2:xqueryText>
+                        </con1:expr>
+                    </con1:assign>
+                    <con1:assign varName="logLevel">
+                        <con2:id>_ActionId-N3f5770df.7091519.4.150a45003a6.N7769</con2:id>
+                        <con1:expr>
+                            <con2:xqueryText>if (fn:empty($inbound/ctx:transport/ctx:request/tp:headers/tp:user-header[@name='logLevel']/@value))
+then '1'
+else $inbound/ctx:transport/ctx:request/tp:headers/tp:user-header[@name='logLevel']/@value</con2:xqueryText>
+                        </con1:expr>
+                    </con1:assign>
+                </con:actions>
+            </con:stage>
+            <con:stage id="_StageId-N3f5770df.7091519.4.150a45003a6.N7779" name="operationName">
+                <con:context/>
+                <con:actions>
+                    <con1:assign varName="operationName">
+                        <con2:id>_ActionId-N3f5770df.7091519.4.150a45003a6.N7762</con2:id>
+                        <con1:expr>
+                            <con2:xqueryText>fn:substring-after($body/*/name(), "request")</con2:xqueryText>
+                        </con1:expr>
+                    </con1:assign>
+                </con:actions>
+            </con:stage>
+            <con:placeholder-node id="PlaceholderID_N3f5770df.7091519.4.150a45003a6.N7778"/>
+        </con:pipeline>
+        <con:pipeline type="response" name="response-N3f5770df.7091519.4.150a45003a6.N777d">
+            <con:placeholder-node id="PlaceholderID_N3f5770c9.5d99add2.0.150cc43da42.N7e95"/>
+        </con:pipeline>
+        <con:pipeline type="error" name="error-N3f5770df.63f4d57a.4.150a4844c2c.N7e60">
+            <con:stage id="_StageId-N3f57fedb.N3d0b21a8.0.16827787a44.N7977" name="setPLExceptionRouting">
+                <con:context/>
+                <con:actions>
+                    <con1:ifThenElse>
+                        <con2:id>_ActionId-N3f57fedb.N3d0b21a8.0.16827787a44.N7a70</con2:id>
+                        <con1:case id="_BranchId-N3f57fedb.N3d0b21a8.0.16827787a44.N7a6f">
+                            <con1:condition>
+                                <con2:xqueryText>fn:empty($firstCustomErrorInfos)</con2:xqueryText>
+                            </con1:condition>
+                            <con1:actions>
+                                <con1:assign varName="bsHeaderResponse">
+                                    <con2:id>_ActionId-a291403.359e526c.0.16fe7aaa9d2.N7df2</con2:id>
+                                    <con1:expr>
+                                        <con2:xqueryText>$outbound/ctx:transport/ctx:response</con2:xqueryText>
+                                    </con1:expr>
+                                </con1:assign>
+                                <con1:assign varName="firstCustomErrorInfos">
+                                    <con2:id>_ActionId-N3f57fedb.N3d0b21a8.0.16827787a44.N7a6e</con2:id>
+                                    <con1:expr>
+                                        <con2:xqueryTransform>
+                                            <con2:resource ref="MDW_CO/transformation/createErrorInfos"/>
+                                            <con2:param name="faultCode">
+                                                <con2:path>if($bsHeaderResponse/*:http-response-code and (fn:data($bsHeaderResponse/*:http-response-code) = "404" or fn:data($bsHeaderResponse/*:http-response-code) = "400"))
+then(fn:data($bsHeaderResponse/*:http-response-code))
+else(fn:data($fault/ctx:errorCode))</con2:path>
+                                            </con2:param>
+                                            <con2:param name="faultDescription">
+                                                <con2:path>fn:data($fault/ctx:reason)</con2:path>
+                                            </con2:param>
+                                            <con2:param name="httpResponseCode">
+                                                <con2:path>fn:data($bsHeaderResponse/*:http-response-code)</con2:path>
+                                            </con2:param>
+                                        </con2:xqueryTransform>
+                                    </con1:expr>
+                                </con1:assign>
+                                <con:placeholder-node id="PlaceholderID_N3f57fedb.N3d0b21a8.0.16827787a44.N7a6d"/>
+                            </con1:actions>
+                        </con1:case>
+                        <con1:default/>
+                    </con1:ifThenElse>
+                </con:actions>
+            </con:stage>
+            <con:stage id="_StageId-N3f5770df.63f4d57a.4.150a4844c2c.N7e5f" name="logErrorFaultMessage">
+                <con:context/>
+                <con:actions>
+                    <con1:assign varName="faultRef">
+                        <con2:id>_ActionId-N3f5770df.63f4d57a.4.150a4844c2c.N7e5c</con2:id>
+                        <con1:expr>
+                            <con2:xqueryText>$fault</con2:xqueryText>
+                        </con1:expr>
+                    </con1:assign>
+                    <con1:assign varName="bsHeaderResponse">
+                        <con2:id>_ActionId-N560177c1.N178aad54.4.15a5afc75a4.N7f92</con2:id>
+                        <con1:expr>
+                            <con2:xqueryText>$outbound/ctx:transport/ctx:response</con2:xqueryText>
+                        </con1:expr>
+                    </con1:assign>
+                    <con:placeholder-node id="PlaceholderID_N3f57704f.6706c617.0.1580a56c871.N7b15"/>
+                    <con4:route>
+                        <con2:id>_ActionId-N3f5770df.63f4d57a.4.150a4844c2c.N7e22</con2:id>
+                        <con4:service ref="MDW_CO/businessServices/BS_LOG_ENQUEUE" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                        <con4:outboundTransform>
+                            <con:placeholder-node id="PlaceholderID_a155e5c.2f0f9efa.0.168bd9ae67b.N6c9e"/>
+                            <con1:routing-options>
+                                <con2:id>_ActionId-N3f5770df.63f4d57a.4.150a4844c2c.N7e21</con2:id>
+                                <con1:qualityOfService>best-effort</con1:qualityOfService>
+                            </con1:routing-options>
+                            <con1:replace varName="body" contents-only="true">
+                                <con2:id>_ActionId-N3f5770df.63f4d57a.4.150a4844c2c.N7e20</con2:id>
+                                <con1:expr>
+                                    <con2:xqueryTransform>
+                                        <con2:resource ref="MDW_CDM/ApplicationObjects/LOG/trasformation/populate_log"/>
+                                        <con2:param name="timeStamp">
+                                            <con2:path>fn:current-dateTime()</con2:path>
+                                        </con2:param>
+                                        <con2:param name="executionTime">
+                                            <con2:path>''</con2:path>
+                                        </con2:param>
+                                        <con2:param name="header_http">
+                                            <con2:path>$bsHeaderResponse</con2:path>
+                                        </con2:param>
+                                        <con2:param name="error_code">
+                                            <con2:path>''</con2:path>
+                                        </con2:param>
+                                        <con2:param name="severity">
+                                            <con2:path>'ERROR'</con2:path>
+                                        </con2:param>
+                                        <con2:param name="soapHeader">
+                                            <con2:path>$header</con2:path>
+                                        </con2:param>
+                                        <con2:param name="sourceSystem">
+                                            <con2:path>''</con2:path>
+                                        </con2:param>
+                                        <con2:param name="description">
+                                            <con2:path>concat('Eccezione nella routing (internal operation). operation: ',$pipelineName, ' (fault message) ')</con2:path>
+                                        </con2:param>
+                                        <con2:param name="targetSystem">
+                                            <con2:path>''</con2:path>
+                                        </con2:param>
+                                        <con2:param name="pipeline">
+                                            <con2:path>$pipelineName</con2:path>
+                                        </con2:param>
+                                        <con2:param name="proxy">
+                                            <con2:path>$inbound/@name</con2:path>
+                                        </con2:param>
+                                        <con2:param name="clientRequestID">
+                                            <con2:path>''</con2:path>
+                                        </con2:param>
+                                        <con2:param name="tid">
+                                            <con2:path>$tid</con2:path>
+                                        </con2:param>
+                                        <con2:param name="payLoad">
+                                            <con2:path>$faultRef</con2:path>
+                                        </con2:param>
+                                    </con2:xqueryTransform>
+                                </con1:expr>
+                            </con1:replace>
+                        </con4:outboundTransform>
+                    </con4:route>
+                </con:actions>
+            </con:stage>
+            <con:placeholder-node id="PlaceholderID_a291138.792cb3d8.0.16daf692b6c.N7c0e"/>
+            <con:stage id="_StageId-N5601dee9.5cf43f84.0.152780f30ab.N7e8a" name="logErrorBodyMessage" xmlns:con2="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con1="http://www.bea.com/wli/sb/stages/config">
+                <con:context>
+                    <con1:userNsDecl prefix="data" namespace="http://www.skytv.it/mdw/data"/>
+                </con:context>
+                <con:actions>
+                    <con5:assign varName="logBodyMessageOnError" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con5="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con4="http://www.bea.com/wli/sb/stages/logging/config" xmlns:con1="http://www.bea.com/wli/sb/stages/publish/config">
+                        <con6:id xmlns:con6="http://www.bea.com/wli/sb/stages/config">_ActionId-N5601dee9.5cf43f84.0.152780f30ab.N7e89</con6:id>
+                        <con5:expr>
+                            <con6:xqueryText xmlns:con6="http://www.bea.com/wli/sb/stages/config">'true'</con6:xqueryText>
+                        </con5:expr>
+                    </con5:assign>
+                    <con2:ifThenElse xmlns:con5="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con1:id>_ActionId-N5601dee9.5cf43f84.0.152780f30ab.N7e88</con1:id>
+                        <con2:case id="_BranchId-N5601dee9.5cf43f84.0.152780f30ab.N7e87">
+                            <con2:condition>
+                                <con1:xqueryText>$logBodyMessageOnError = 'true'</con1:xqueryText>
+                            </con2:condition>
+                            <con2:actions>
+                                <con1:route xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con4="http://www.bea.com/wli/sb/stages/logging/config" xmlns:con1="http://www.bea.com/wli/sb/stages/publish/config">
+                                    <con6:id xmlns:con6="http://www.bea.com/wli/sb/stages/config">_ActionId-N5601dee9.5cf43f84.0.152780f30ab.N7e86</con6:id>
+                                    <con1:service ref="MDW_CO/businessServices/BS_LOG_ENQUEUE" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                                    <con1:outboundTransform>
+                                        <con5:routing-options>
+                                            <con6:id xmlns:con6="http://www.bea.com/wli/sb/stages/config">_ActionId-N5601dee9.5cf43f84.0.152780f30ab.N7e85</con6:id>
+                                            <con3:qualityOfService>best-effort</con3:qualityOfService>
+                                        </con5:routing-options>
+                                        <con3:replace contents-only="true" varName="body">
+                                            <con6:id xmlns:con6="http://www.bea.com/wli/sb/stages/config">_ActionId-N5601dee9.5cf43f84.0.152780f30ab.N7e84</con6:id>
+                                            <con3:expr>
+                                                <con6:xqueryTransform xmlns:con6="http://www.bea.com/wli/sb/stages/config">
+                                                    <con6:resource ref="MDW_CDM/ApplicationObjects/LOG/trasformation/populate_log"/>
+                                                    <con6:param name="timeStamp">
+                                                        <con6:path>fn:current-dateTime()</con6:path>
+                                                    </con6:param>
+                                                    <con6:param name="executionTime">
+                                                        <con6:path>''</con6:path>
+                                                    </con6:param>
+                                                    <con6:param name="header_http">
+                                                        <con6:path>&lt;empty/></con6:path>
+                                                    </con6:param>
+                                                    <con6:param name="error_code">
+                                                        <con6:path>$faultRef/ctx:errorCode/text()</con6:path>
+                                                    </con6:param>
+                                                    <con6:param name="severity">
+                                                        <con6:path>'ERROR'</con6:path>
+                                                    </con6:param>
+                                                    <con6:param name="soapHeader">
+                                                        <con6:path>$header</con6:path>
+                                                    </con6:param>
+                                                    <con6:param name="sourceSystem">
+                                                        <con6:path>$requestHeader/data:Header/data:systemSender/text()</con6:path>
+                                                    </con6:param>
+                                                    <con6:param name="description">
+                                                        <con6:path>concat("Body message nell'eccezione della routing: ",$pipelineName)</con6:path>
+                                                    </con6:param>
+                                                    <con6:param name="targetSystem">
+                                                        <con6:path>$requestHeader/data:Header/data:systemTarget/text()</con6:path>
+                                                    </con6:param>
+                                                    <con6:param name="pipeline">
+                                                        <con6:path>$pipelineName</con6:path>
+                                                    </con6:param>
+                                                    <con6:param name="proxy">
+                                                        <con6:path>fn:substring-after($inbound/@name, "proxy$")</con6:path>
+                                                    </con6:param>
+                                                    <con6:param name="clientRequestID">
+                                                        <con6:path>$requestHeader/data:Header/data:transactionID/text()</con6:path>
+                                                    </con6:param>
+                                                    <con6:param name="tid">
+                                                        <con6:path>$tid</con6:path>
+                                                    </con6:param>
+                                                    <con6:param name="payLoad">
+                                                        <con6:path>$body</con6:path>
+                                                    </con6:param>
+                                                </con6:xqueryTransform>
+                                            </con3:expr>
+                                        </con3:replace>
+                                    </con1:outboundTransform>
+                                </con1:route>
+                            </con2:actions>
+                        </con2:case>
+                        <con2:default/>
+                    </con2:ifThenElse>
+                </con:actions>
+            </con:stage>
+            <con:placeholder-node id="PlaceholderID_a291138.792cb3d8.0.16daf692b6c.N7c0d"/>
+            <con:stage id="_StageId-N3f5770df.63f4d57a.4.150a4844c2c.N7e1f" name="RaiseError">
+                <con:context/>
+                <con:actions>
+                    <con1:ifThenElse>
+                        <con2:id>_ActionId-N3f57704b.4cea9696.0.155c06d9b0d.N7afe</con2:id>
+                        <con1:case id="_BranchId-N3f57704b.4cea9696.0.155c06d9b0d.N7afd">
+                            <con1:condition>
+                                <con2:xqueryText>fn:exists($body//*:errorCode) and fn:data($body//*:errorCode) = '99'</con2:xqueryText>
+                            </con1:condition>
+                            <con1:actions>
+                                <con1:Error>
+                                    <con2:id>_ActionId-N3f57704b.4cea9696.0.155c06d9b0d.N7ac9</con2:id>
+                                    <con1:errCode>99</con1:errCode>
+                                    <con1:message>Errore di Timeout</con1:message>
+                                </con1:Error>
+                            </con1:actions>
+                        </con1:case>
+                        <con1:default>
+                            <con1:Error>
+                                <con2:id>_ActionId-N3f5770df.63f4d57a.4.150a4844c2c.N7e1b</con2:id>
+                                <con1:errCode>1002</con1:errCode>
+                                <con1:message>Eccezione invocazione Routing (Internal)</con1:message>
+                            </con1:Error>
+                        </con1:default>
+                    </con1:ifThenElse>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="error" name="error-N3f5770df.63f4d57a.4.150a4844c2c.N7de9">
+            <con:stage id="_StageId-N3f577792.4f95d624.4.152cfa677bf.N77b5" name="setPLException">
+                <con:context/>
+                <con:actions>
+                    <con5:assign varName="pipelineTerminatedWithException" xmlns:con3="http://www.bea.com/wli/sb/stages/logging/config" xmlns:con2="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con1="http://www.bea.com/wli/sb/stages/config" xmlns:con5="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con1:id>_ActionId-N3f577792.4f95d624.4.152cfa677bf.N7781</con1:id>
+                        <con5:expr>
+                            <con1:xqueryText>'true'</con1:xqueryText>
+                        </con5:expr>
+                    </con5:assign>
+                    <con1:ifThenElse>
+                        <con2:id>_ActionId-a290a7e.N39c216e2.0.1655d189eb1.N7e59</con2:id>
+                        <con1:case id="_BranchId-a290a7e.N39c216e2.0.1655d189eb1.N7e58">
+                            <con1:condition>
+                                <con2:xqueryText>fn:empty($firstCustomErrorInfos)</con2:xqueryText>
+                            </con1:condition>
+                            <con1:actions>
+                                <con1:assign varName="bsHeaderResponse">
+                                    <con2:id>_ActionId-a291403.359e526c.0.16fe7aaa9d2.N7dbd</con2:id>
+                                    <con1:expr>
+                                        <con2:xqueryText>$outbound/ctx:transport/ctx:response</con2:xqueryText>
+                                    </con1:expr>
+                                </con1:assign>
+                                <con1:assign varName="firstCustomErrorInfos">
+                                    <con2:id>_ActionId-a290a7e.N39c216e2.0.1655d189eb1.N7e24</con2:id>
+                                    <con1:expr>
+                                        <con2:xqueryTransform>
+                                            <con2:resource ref="MDW_CO/transformation/createErrorInfos"/>
+                                            <con2:param name="faultCode">
+                                                <con2:path>if($bsHeaderResponse/*:http-response-code and (fn:data($bsHeaderResponse/*:http-response-code) = "404" or fn:data($bsHeaderResponse/*:http-response-code) = "400"))
+then(fn:data($bsHeaderResponse/*:http-response-code))
+else(fn:data($fault/ctx:errorCode))</con2:path>
+                                            </con2:param>
+                                            <con2:param name="faultDescription">
+                                                <con2:path>fn:data($fault/ctx:reason)</con2:path>
+                                            </con2:param>
+                                            <con2:param name="httpResponseCode">
+                                                <con2:path>fn:data($bsHeaderResponse/*:http-response-code)</con2:path>
+                                            </con2:param>
+                                        </con2:xqueryTransform>
+                                    </con1:expr>
+                                </con1:assign>
+                                <con:placeholder-node id="PlaceholderID_a290a7e.N39c216e2.0.1655d189eb1.N79de"/>
+                            </con1:actions>
+                        </con1:case>
+                        <con1:default/>
+                    </con1:ifThenElse>
+                </con:actions>
+            </con:stage>
+            <con:stage id="_StageId-N3f5770df.63f4d57a.4.150a4844c2c.N7de8" name="LogErrorGeneral">
+                <con:context/>
+                <con:actions>
+                    <con:placeholder-node id="PlaceholderID_N3f5770df.63f4d57a.4.150a4844c2c.N7de7"/>
+                    <con1:assign varName="faultRef">
+                        <con2:id>_ActionId-N3f5770df.63f4d57a.4.150a4844c2c.N7de4</con2:id>
+                        <con1:expr>
+                            <con2:xqueryText>$fault</con2:xqueryText>
+                        </con1:expr>
+                    </con1:assign>
+                    <con4:route>
+                        <con2:id>_ActionId-N3f5770df.63f4d57a.4.150a4844c2c.N7daa</con2:id>
+                        <con4:service ref="MDW_CO/businessServices/BS_LOG_ENQUEUE" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                        <con4:outboundTransform>
+                            <con1:routing-options>
+                                <con2:id>_ActionId-N3f5770df.63f4d57a.4.150a4844c2c.N7da9</con2:id>
+                                <con1:qualityOfService>best-effort</con1:qualityOfService>
+                            </con1:routing-options>
+                            <con1:replace varName="body" contents-only="true">
+                                <con2:id>_ActionId-N3f5770df.63f4d57a.4.150a4844c2c.N7da8</con2:id>
+                                <con1:expr>
+                                    <con2:xqueryTransform>
+                                        <con2:resource ref="MDW_CDM/ApplicationObjects/LOG/trasformation/populate_log"/>
+                                        <con2:param name="timeStamp">
+                                            <con2:path>fn:current-dateTime()</con2:path>
+                                        </con2:param>
+                                        <con2:param name="executionTime">
+                                            <con2:path>''</con2:path>
+                                        </con2:param>
+                                        <con2:param name="header_http">
+                                            <con2:path>$firstCustomErrorInfos</con2:path>
+                                        </con2:param>
+                                        <con2:param name="error_code">
+                                            <con2:path>$faultRef/ctx:errorCode/text()</con2:path>
+                                        </con2:param>
+                                        <con2:param name="severity">
+                                            <con2:path>'ERROR'</con2:path>
+                                        </con2:param>
+                                        <con2:param name="soapHeader">
+                                            <con2:path>$header</con2:path>
+                                        </con2:param>
+                                        <con2:param name="sourceSystem">
+                                            <con2:path>''</con2:path>
+                                        </con2:param>
+                                        <con2:param name="description">
+                                            <con2:path>concat('Catturata eccezione globale. Operation: ',$operationName)</con2:path>
+                                        </con2:param>
+                                        <con2:param name="targetSystem">
+                                            <con2:path>''</con2:path>
+                                        </con2:param>
+                                        <con2:param name="pipeline">
+                                            <con2:path>$pipelineName</con2:path>
+                                        </con2:param>
+                                        <con2:param name="proxy">
+                                            <con2:path>$inbound/@name</con2:path>
+                                        </con2:param>
+                                        <con2:param name="clientRequestID">
+                                            <con2:path>''</con2:path>
+                                        </con2:param>
+                                        <con2:param name="tid">
+                                            <con2:path>$tid</con2:path>
+                                        </con2:param>
+                                        <con2:param name="payLoad">
+                                            <con2:path>$faultRef</con2:path>
+                                        </con2:param>
+                                    </con2:xqueryTransform>
+                                </con1:expr>
+                            </con1:replace>
+                        </con4:outboundTransform>
+                    </con4:route>
+                </con:actions>
+            </con:stage>
+            <con:placeholder-node id="PlaceholderID_N3f5770df.63f4d57a.4.150a4844c2c.N7da7"/>
+            <con:stage id="_StageId-N3f5770df.63f4d57a.4.150a4844c2c.N7da6" name="ManagementException">
+                <con:context>
+                    <con5:variable name="firstCustomErrorInfosXSD" path="$firstCustomErrorInfos" asChild="false">
+                        <con5:schema ref="MDW_CDM/EnterpriseObjects/CommonEntities/errorInfos" element="errorInfos"/>
+                    </con5:variable>
+                </con:context>
+                <con:actions>
+                    <con1:ifThenElse>
+                        <con2:id>_ActionId-N3f5770df.63f4d57a.4.150a4844c2c.N7d71</con2:id>
+                        <con1:case id="_BranchId-N3f5770df.63f4d57a.4.150a4844c2c.N7d70">
+                            <con1:condition>
+                                <con2:xqueryText>$pathXquerySimpleResponse=''</con2:xqueryText>
+                            </con1:condition>
+                            <con1:actions/>
+                        </con1:case>
+                        <con1:default>
+                            <con1:replace varName="body" contents-only="true">
+                                <con2:id>_ActionId-N3f5770df.63f4d57a.4.150a4844c2c.N7ca5</con2:id>
+                                <con1:expr>
+                                    <con2:dynamicXqueryTransform>
+                                        <con2:resourceExpr>$pathXquerySimpleResponse</con2:resourceExpr>
+                                        <con2:param name="esito">
+                                            <con2:path>$fault/ctx:errorCode/text()</con2:path>
+                                        </con2:param>
+                                        <con2:param name="descrizioneEsito">
+                                            <con2:path>if($fault/ctx:errorCode/text() = '99') 
+then ( $fault/ctx:reason/text() )
+else( "Errore durante l'esecuzione del servizio" )</con2:path>
+                                        </con2:param>
+                                        <con2:param name="tid">
+                                            <con2:path>$tid</con2:path>
+                                        </con2:param>
+                                        <con2:param name="rootNodeName">
+                                            <con2:path>if($dvmPath='' ) 
+then 'ResponseError'
+else dvm:lookup($dvmPath, 'operation', $operationName, 'responseType','default')</con2:path>
+                                        </con2:param>
+                                    </con2:dynamicXqueryTransform>
+                                </con1:expr>
+                            </con1:replace>
+                        </con1:default>
+                    </con1:ifThenElse>
+                </con:actions>
+            </con:stage>
+            <con:stage id="_StageId-N3f5770df.63f4d57a.4.150a4844c2c.N7862" name="Reply">
+                <con:context/>
+                <con:actions>
+                    <con4:route>
+                        <con2:id>_ActionId-N5601dee9.N2cb45ca2.0.1523546abfa.N7e79</con2:id>
+                        <con4:service ref="MDW_CO/businessServices/BS_LOG_ENQUEUE" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                        <con4:outboundTransform>
+                            <con1:routing-options>
+                                <con2:id>_ActionId-N5601dee9.N2cb45ca2.0.1523546abfa.N7e78</con2:id>
+                                <con1:qualityOfService>best-effort</con1:qualityOfService>
+                            </con1:routing-options>
+                            <con1:replace varName="body" contents-only="true">
+                                <con2:id>_ActionId-N5601dee9.N2cb45ca2.0.1523546abfa.N7e77</con2:id>
+                                <con1:expr>
+                                    <con2:xqueryTransform>
+                                        <con2:resource ref="MDW_CDM/ApplicationObjects/LOG/trasformation/populate_log"/>
+                                        <con2:param name="timeStamp">
+                                            <con2:path>fn:current-dateTime()</con2:path>
+                                        </con2:param>
+                                        <con2:param name="executionTime">
+                                            <con2:path>''</con2:path>
+                                        </con2:param>
+                                        <con2:param name="header_http">
+                                            <con2:path>&lt;empty/></con2:path>
+                                        </con2:param>
+                                        <con2:param name="error_code">
+                                            <con2:path>''</con2:path>
+                                        </con2:param>
+                                        <con2:param name="severity">
+                                            <con2:path>'INFO'</con2:path>
+                                        </con2:param>
+                                        <con2:param name="soapHeader">
+                                            <con2:path>$header</con2:path>
+                                        </con2:param>
+                                        <con2:param name="sourceSystem">
+                                            <con2:path>''</con2:path>
+                                        </con2:param>
+                                        <con2:param name="description">
+                                            <con2:path>concat('END internal p. with EXCEPTION. Operation: ',$operationName)</con2:path>
+                                        </con2:param>
+                                        <con2:param name="targetSystem">
+                                            <con2:path>''</con2:path>
+                                        </con2:param>
+                                        <con2:param name="pipeline">
+                                            <con2:path>$pipelineName</con2:path>
+                                        </con2:param>
+                                        <con2:param name="proxy">
+                                            <con2:path>$inbound/@name</con2:path>
+                                        </con2:param>
+                                        <con2:param name="clientRequestID">
+                                            <con2:path>''</con2:path>
+                                        </con2:param>
+                                        <con2:param name="tid">
+                                            <con2:path>$tid</con2:path>
+                                        </con2:param>
+                                        <con2:param name="payLoad">
+                                            <con2:path>$body</con2:path>
+                                        </con2:param>
+                                    </con2:xqueryTransform>
+                                </con1:expr>
+                            </con1:replace>
+                        </con4:outboundTransform>
+                    </con4:route>
+                    <con1:ifThenElse>
+                        <con2:id>_ActionId-N3f577050.615af227.0.15456f7cb81.N7694</con2:id>
+                        <con1:case id="_BranchId-N3f577050.615af227.0.15456f7cb81.N7693">
+                            <con1:condition>
+                                <con2:xqueryText>$raiseErrorOnException = 'true'</con2:xqueryText>
+                            </con1:condition>
+                            <con1:actions>
+                                <con1:ifThenElse>
+                                    <con2:id>_ActionId-N3f57704b.4cea9696.0.155c06d9b0d.N7a94</con2:id>
+                                    <con1:case id="_BranchId-N3f57704b.4cea9696.0.155c06d9b0d.N7a93">
+                                        <con1:condition>
+                                            <con2:xqueryText>fn:exists($faultRef/ctx:errorCode) and fn:data($faultRef/ctx:errorCode) = '99'</con2:xqueryText>
+                                        </con1:condition>
+                                        <con1:actions>
+                                            <con1:Error>
+                                                <con2:id>_ActionId-N3f57704b.4cea9696.0.155c06d9b0d.N7a5f</con2:id>
+                                                <con1:errCode>99</con1:errCode>
+                                                <con1:message>Errore di Timeout</con1:message>
+                                            </con1:Error>
+                                        </con1:actions>
+                                    </con1:case>
+                                    <con1:default>
+                                        <con1:Error>
+                                            <con2:id>_ActionId-N3f577050.615af227.0.15456f7cb81.N765d</con2:id>
+                                            <con1:errCode>90001</con1:errCode>
+                                            <con1:message>Pipeline terminata con eccezione</con1:message>
+                                        </con1:Error>
+                                    </con1:default>
+                                </con1:ifThenElse>
+                            </con1:actions>
+                        </con1:case>
+                        <con1:default>
+                            <con2:reply isError="true">
+                                <con2:id>_ActionId-N3f5770df.63f4d57a.4.150a4844c2c.N7861</con2:id>
+                            </con2:reply>
+                        </con1:default>
+                    </con1:ifThenElse>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:flow>
+            <con:pipeline-node name="PipelinePairNode1">
+                <con:request>request-N3f5770df.7091519.4.150a45003a6.N777e</con:request>
+                <con:response>response-N3f5770df.7091519.4.150a45003a6.N777d</con:response>
+            </con:pipeline-node>
+            <con:route-node id="_RouteId-N3f5770df.7091519.4.150a45003a6.N77b1" name="RouteNode1" error-handler="error-N3f5770df.63f4d57a.4.150a4844c2c.N7e60">
+                <con:context/>
+                <con:actions>
+                    <con1:ifThenElse>
+                        <con2:id>_ActionId-N3f57c7ff.N7fdce3fb.0.15f962babd8.N791d</con2:id>
+                        <con1:case id="_BranchId-N3f57c7ff.N7fdce3fb.0.15f962babd8.N791c">
+                            <con1:condition>
+                                <con2:xqueryText>true()</con2:xqueryText>
+                            </con1:condition>
+                            <con1:actions>
+                                <con3:route>
+                                    <con2:id>_ActionId-N3f5770df.7091519.4.150a45003a6.N77b0</con2:id>
+                                    <con3:outboundTransform>
+                                        <con:placeholder-node id="PlaceholderID_N3f5770df.7091519.4.150a45003a6.N7761"/>
+                                        <con1:replace varName="body" contents-only="true">
+                                            <con2:id>_ActionId-N3f5770df.7091519.4.150a45003a6.N775e</con2:id>
+                                            <con1:expr>
+                                                <con2:xqueryText>''</con2:xqueryText>
+                                            </con1:expr>
+                                        </con1:replace>
+                                        <con1:ifThenElse>
+                                            <con2:id>_ActionId-N3f5770df.7091519.4.150a45003a6.N7751</con2:id>
+                                            <con1:case id="_BranchId-N3f5770df.7091519.4.150a45003a6.N7750">
+                                                <con1:condition>
+                                                    <con2:xqueryText>xs:integer($logLevel) >= xs:integer(1)</con2:xqueryText>
+                                                </con1:condition>
+                                                <con1:actions>
+                                                    <con1:assign varName="bsHeaderRequest">
+                                                        <con2:id>_ActionId-N560177c1.N178aad54.4.15a5afc75a4.N7fc8</con2:id>
+                                                        <con1:expr>
+                                                            <con2:xqueryText>&lt;bsHeaderRequest>not logged.&lt;/bsHeaderRequest></con2:xqueryText>
+                                                        </con1:expr>
+                                                    </con1:assign>
+                                                    <con4:route>
+                                                        <con2:id>_ActionId-N3f5770df.7091519.4.150a45003a6.N774d</con2:id>
+                                                        <con4:service ref="MDW_CO/businessServices/BS_LOG_ENQUEUE" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                                                        <con4:outboundTransform>
+                                                            <con:placeholder-node id="PlaceholderID_a155e5c.2f0f9efa.0.168bd9ae67b.N6df7"/>
+                                                            <con1:routing-options>
+                                                                <con2:id>_ActionId-N3f5770df.7091519.4.150a45003a6.N774a</con2:id>
+                                                                <con1:qualityOfService>best-effort</con1:qualityOfService>
+                                                            </con1:routing-options>
+                                                            <con1:replace varName="body" contents-only="true">
+                                                                <con2:id>_ActionId-N3f5770df.7091519.4.150a45003a6.N7747</con2:id>
+                                                                <con1:expr>
+                                                                    <con2:xqueryTransform>
+                                                                        <con2:resource ref="MDW_CDM/ApplicationObjects/LOG/trasformation/populate_log"/>
+                                                                        <con2:param name="timeStamp">
+                                                                            <con2:path>fn:current-dateTime()</con2:path>
+                                                                        </con2:param>
+                                                                        <con2:param name="executionTime">
+                                                                            <con2:path>''</con2:path>
+                                                                        </con2:param>
+                                                                        <con2:param name="header_http">
+                                                                            <con2:path>$bsHeaderRequest</con2:path>
+                                                                        </con2:param>
+                                                                        <con2:param name="error_code">
+                                                                            <con2:path>''</con2:path>
+                                                                        </con2:param>
+                                                                        <con2:param name="severity">
+                                                                            <con2:path>'INFO'</con2:path>
+                                                                        </con2:param>
+                                                                        <con2:param name="soapHeader">
+                                                                            <con2:path>$header</con2:path>
+                                                                        </con2:param>
+                                                                        <con2:param name="sourceSystem">
+                                                                            <con2:path>''</con2:path>
+                                                                        </con2:param>
+                                                                        <con2:param name="description">
+                                                                            <con2:path>concat('BS[',$BSNameForLog, '] Input Internal for: ',$operationName)</con2:path>
+                                                                        </con2:param>
+                                                                        <con2:param name="targetSystem">
+                                                                            <con2:path>''</con2:path>
+                                                                        </con2:param>
+                                                                        <con2:param name="pipeline">
+                                                                            <con2:path>$pipelineName</con2:path>
+                                                                        </con2:param>
+                                                                        <con2:param name="proxy">
+                                                                            <con2:path>$inbound/@name</con2:path>
+                                                                        </con2:param>
+                                                                        <con2:param name="clientRequestID">
+                                                                            <con2:path>''</con2:path>
+                                                                        </con2:param>
+                                                                        <con2:param name="tid">
+                                                                            <con2:path>$tid</con2:path>
+                                                                        </con2:param>
+                                                                        <con2:param name="payLoad">
+                                                                            <con2:path>$body</con2:path>
+                                                                        </con2:param>
+                                                                    </con2:xqueryTransform>
+                                                                </con1:expr>
+                                                            </con1:replace>
+                                                        </con4:outboundTransform>
+                                                    </con4:route>
+                                                </con1:actions>
+                                            </con1:case>
+                                            <con1:default/>
+                                        </con1:ifThenElse>
+                                    </con3:outboundTransform>
+                                    <con3:responseTransform>
+                                        <con1:ifThenElse>
+                                            <con2:id>_ActionId-N3f5770df.63f4d57a.4.150a4844c2c.N779f</con2:id>
+                                            <con1:case id="_BranchId-N3f5770df.63f4d57a.4.150a4844c2c.N779e">
+                                                <con1:condition>
+                                                    <con2:xqueryText>xs:integer($logLevel) >= xs:integer(1)</con2:xqueryText>
+                                                </con1:condition>
+                                                <con1:actions>
+                                                    <con1:assign varName="bsHeaderResponse">
+                                                        <con2:id>_ActionId-N560177c1.N178aad54.4.15a5afc75a4.N7f95</con2:id>
+                                                        <con1:expr>
+                                                            <con2:xqueryText>$outbound/ctx:transport/ctx:response</con2:xqueryText>
+                                                        </con1:expr>
+                                                    </con1:assign>
+                                                    <con4:route>
+                                                        <con2:id>_ActionId-N3f5770df.63f4d57a.4.150a4844c2c.N7f2b</con2:id>
+                                                        <con4:service ref="MDW_CO/businessServices/BS_LOG_ENQUEUE" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                                                        <con4:outboundTransform>
+                                                            <con:placeholder-node id="PlaceholderID_a155e5c.2f0f9efa.0.168bd9ae67b.N6dc5"/>
+                                                            <con1:routing-options>
+                                                                <con2:id>_ActionId-N3f5770df.63f4d57a.4.150a4844c2c.N7f2a</con2:id>
+                                                                <con1:qualityOfService>best-effort</con1:qualityOfService>
+                                                            </con1:routing-options>
+                                                            <con1:replace varName="body" contents-only="true">
+                                                                <con2:id>_ActionId-N3f5770df.63f4d57a.4.150a4844c2c.N7f29</con2:id>
+                                                                <con1:expr>
+                                                                    <con2:xqueryTransform>
+                                                                        <con2:resource ref="MDW_CDM/ApplicationObjects/LOG/trasformation/populate_log"/>
+                                                                        <con2:param name="timeStamp">
+                                                                            <con2:path>fn:current-dateTime()</con2:path>
+                                                                        </con2:param>
+                                                                        <con2:param name="executionTime">
+                                                                            <con2:path>''</con2:path>
+                                                                        </con2:param>
+                                                                        <con2:param name="header_http">
+                                                                            <con2:path>$bsHeaderResponse</con2:path>
+                                                                        </con2:param>
+                                                                        <con2:param name="error_code">
+                                                                            <con2:path>''</con2:path>
+                                                                        </con2:param>
+                                                                        <con2:param name="severity">
+                                                                            <con2:path>'INFO'</con2:path>
+                                                                        </con2:param>
+                                                                        <con2:param name="soapHeader">
+                                                                            <con2:path>$header</con2:path>
+                                                                        </con2:param>
+                                                                        <con2:param name="sourceSystem">
+                                                                            <con2:path>''</con2:path>
+                                                                        </con2:param>
+                                                                        <con2:param name="description">
+                                                                            <con2:path>concat('BS[',$BSNameForLog, '] Output Internal for: ',$operationName)</con2:path>
+                                                                        </con2:param>
+                                                                        <con2:param name="targetSystem">
+                                                                            <con2:path>''</con2:path>
+                                                                        </con2:param>
+                                                                        <con2:param name="pipeline">
+                                                                            <con2:path>$pipelineName</con2:path>
+                                                                        </con2:param>
+                                                                        <con2:param name="proxy">
+                                                                            <con2:path>$inbound/@name</con2:path>
+                                                                        </con2:param>
+                                                                        <con2:param name="clientRequestID">
+                                                                            <con2:path>''</con2:path>
+                                                                        </con2:param>
+                                                                        <con2:param name="tid">
+                                                                            <con2:path>$tid</con2:path>
+                                                                        </con2:param>
+                                                                        <con2:param name="payLoad">
+                                                                            <con2:path>$body</con2:path>
+                                                                        </con2:param>
+                                                                    </con2:xqueryTransform>
+                                                                </con1:expr>
+                                                            </con1:replace>
+                                                        </con4:outboundTransform>
+                                                    </con4:route>
+                                                </con1:actions>
+                                            </con1:case>
+                                            <con1:default/>
+                                        </con1:ifThenElse>
+                                        <con:placeholder-node id="PlaceholderID_N3f577090.7fe66b09.0.15703a35cf2.N7d84"/>
+                                        <con1:replace varName="body" contents-only="true">
+                                            <con2:id>_ActionId-N3f5770df.63f4d57a.4.150a4844c2c.N7f26</con2:id>
+                                            <con1:expr>
+                                                <con2:xqueryText>''</con2:xqueryText>
+                                            </con1:expr>
+                                        </con1:replace>
+                                        <con:placeholder-node id="PlaceholderID_a290ab9.556e6777.0.15ee8191cf4.N7936"/>
+                                    </con3:responseTransform>
+                                </con3:route>
+                            </con1:actions>
+                        </con1:case>
+                        <con1:default/>
+                    </con1:ifThenElse>
+                </con:actions>
+            </con:route-node>
+        </con:flow>
+        <con:shared-variables>
+            <con:variable>pipelineTerminatedWithException</con:variable>
+            <con:variable>globalTid</con:variable>
+            <con:variable>serviceStartWithRoutingPipeline</con:variable>
+            <con:variable>firstCustomErrorInfos</con:variable>
+        </con:shared-variables>
+    </con:router>
+</con:templateEntry>
