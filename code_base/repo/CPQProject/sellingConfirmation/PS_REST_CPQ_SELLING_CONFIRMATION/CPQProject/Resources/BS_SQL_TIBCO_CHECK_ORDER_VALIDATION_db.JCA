@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:jcaEntry xmlns:con="http://www.bea.com/wli/sb/resources/config">
+    <con:jca><![CDATA[<adapter-config name="BS_SQL_TIBCO_CHECK_ORDER_VALIDATION" adapter="db" wsdlLocation="BS_SQL_TIBCO_CHECK_ORDER_VALIDATION.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory UIConnectionName="OS_ST05" location="eis/DB/JCA_TIBCO_NO_XA"/>
+  <endpoint-interaction portType="BS_SQL_TIBCO_CHECK_ORDER_VALIDATION_ptt" operation="BS_SQL_TIBCO_CHECK_ORDER_VALIDATION">
+    <interaction-spec className="oracle.tip.adapter.db.DBStoredProcedureInteractionSpec">
+      <property name="SchemaName" value="OMSELECT"/>
+      <property name="PackageName" value="PCK_OV"/>
+      <property name="ProcedureName" value="EXEC"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>]]></con:jca>
+    <con:jcaDependency>
+        <con:wsdlRef wsdlLocation="BS_SQL_TIBCO_CHECK_ORDER_VALIDATION.wsdl" ref="CPQProject/Resources/BS_SQL_TIBCO_CHECK_ORDER_VALIDATION"/>
+    </con:jcaDependency>
+</con:jcaEntry>
